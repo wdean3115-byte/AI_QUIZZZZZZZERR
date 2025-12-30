@@ -25,7 +25,7 @@ export default function DashboardPage() {
       });
 
       if (!res.ok) {
-        throw new Error("Хураангуй үүсгэхэд алдаа гарлаа");
+        throw new Error(" алдаа гарлаа");
       }
 
       const data = await res.json();
@@ -69,12 +69,9 @@ export default function DashboardPage() {
       {/* Оруулах хэсэг */}
       <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
         <h2 className="font-semibold text-lg mb-1 flex items-center gap-2 text-gray-500">
-          ✨ AI Article Assistant
+          AI Article Assistant
         </h2>
-        <p className="text-sm text-gray-400 mb-6">
-          Нийтлэлийнхээ гарчиг болон текстийг оруулаад AI-аар хураангуйлуулж,
-          мэдлэгээ шалгаарай.
-        </p>
+        <p className="text-sm text-gray-400 mb-6">AI will help u anything</p>
 
         <div className="space-y-4">
           <div>
@@ -114,7 +111,7 @@ export default function DashboardPage() {
             {isLoading ? (
               <>
                 <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                Уншиж байна...
+                Loading
               </>
             ) : (
               "Хураангуй үүсгэх"
@@ -134,7 +131,7 @@ export default function DashboardPage() {
           </div>
 
           <p className="text-sm text-gray-600 leading-relaxed italic">
-            "{summary}"
+            {summary}
           </p>
 
           <div className="flex items-center justify-between mt-8 pt-6 border-t border-gray-50">

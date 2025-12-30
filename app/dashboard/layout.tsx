@@ -20,10 +20,10 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
           <h1 className="font-semibold text-sm text-gray-600">Quiz app</h1>
           <div className="flex items-center gap-4">
             <UserButton
-              afterSignOutUrl="/sign-in" // Системээс гарахад очих хуудас
+              afterSignOutUrl="/sign-in"
               appearance={{
                 elements: {
-                  avatarBox: "w-8 h-8", // Хэмжээг нь тохируулах
+                  avatarBox: "w-8 h-8",
                 },
               }}
             />
