@@ -10,22 +10,28 @@ export async function POST(_req: Request) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    // Clerk-ээс хэрэглэгчийн дэлгэрэнгүй мэдээллийг авах
     const clerkUser = await currentUser();
     if (!clerkUser) {
       return new NextResponse("User not found in Clerk", { status: 404 });
     }
 
     const email = clerkUser.emailAddresses?.[0]?.emailAddress;
-    const name = `${clerkUser.firstName || ""} ${
-      clerkUser.lastName || ""
-    }`.trim();
+    const name = `${clerkUser.firstName || ""} ${clerkUser.lastName || ""}`.trim();
 
-    // upsert ашиглах - байвал update, байхгүй бол create
+    if (!email) {
+      return new NextResponse("Email not found", { status: 400 });
+    }
+
+    // We use upsert on 'email' or 'clerkId'. 
+    // Usually, syncing by clerkId is safer, but your error shows the email is the conflict.
     const user = await prisma.user.upsert({
-      where: { clerkId: userId },
+      where: { 
+        // If your schema allows it, upserting by email ensures 
+        // you don't create two accounts for one email address.
+        email: email 
+      },
       update: {
-        email: email,
+        clerkId: userId, // Ensure the clerkId is linked/updated
         name: name || null,
       },
       create: {
@@ -35,9 +41,10 @@ export async function POST(_req: Request) {
       },
     });
 
-    return NextResponse.json(user, { status: existing ? 200 : 201 });
+    return NextResponse.json(user, { status: 200 });
   } catch (err) {
     console.error("SYNC ERROR:", err);
+    // If it's still a constraint error, it means another field (like clerkId) is also unique and colliding
     return new NextResponse("Internal Server Error", { status: 500 });
   }
 }
