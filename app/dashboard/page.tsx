@@ -97,7 +97,7 @@ export default function DashboardPage() {
               rows={8}
               className="mt-1 w-full border border-gray-200 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-black/5 
                  text-gray-500 placeholder:text-gray-400 leading-relaxed" // Текст: дунд зэргийн саарал, Placeholder: маш цайвар
-              placeholder="Энд текстээ хуулна уу..."
+              placeholder="Place text here"
             />
           </div>
         </div>
@@ -135,9 +135,7 @@ export default function DashboardPage() {
           </p>
 
           <div className="flex items-center justify-between mt-8 pt-6 border-t border-gray-50">
-            <p className="text-xs text-gray-400">
-              Одоо энэ хураангуй дээр суурилсан тест өгөх үү?
-            </p>
+            <p className="text-xs text-gray-400">Do u wanna take test?</p>
             <button
               onClick={handleTakeQuiz}
               disabled={isQuizLoading}
@@ -146,7 +144,7 @@ export default function DashboardPage() {
               {isQuizLoading ? (
                 <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
               ) : (
-                "Quiz эхлүүлэх"
+                "Initiating quiz"
               )}
             </button>
           </div>

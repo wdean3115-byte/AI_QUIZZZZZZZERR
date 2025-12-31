@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
 import { auth, currentUser } from "@clerk/nextjs/server"; // auth болон currentUser ашиглана
-import prisma from "@/lib/prisma";
+import { prisma } from "@/lib/prisma";
 
-export async function POST(req: Request) {
+export async function POST(_req: Request) {
   try {
     const { userId } = await auth(); // await нэмсэн
 

@@ -1,21 +1,21 @@
+import { PrismaPg } from "@prisma/adapter-pg";
 import { PrismaClient } from "@prisma/client";
+import pg from "pg";
 
-// Prisma Client-ийг singleton болгох функц
-const prismaClientSingleton = () => {
-  return new PrismaClient({
-    log: ["error", "warn"],
-  });
+const { Pool } = pg;
+const connectionString = process.env.DATABASE_URL;
+const pool = new Pool({ connectionString });
+const adapter = new PrismaPg(pool);
+
+const globalForPrisma = global as unknown as {
+  prisma: PrismaClient | undefined;
 };
 
-// Global төрлийг тодорхойлж өгөх (TypeScript-д зориулж)
-declare const globalThis: {
-  prismaGlobal: ReturnType<typeof prismaClientSingleton> | undefined;
-} & typeof global;
+// Use 'export const' for a named export
+export const prisma =
+  globalForPrisma.prisma ||
+  new PrismaClient({
+    adapter,
+  });
 
-// Хэрэв global-д байвал түүнийг ашиглана, байхгүй бол шинийг үүсгэнэ
-const prisma = globalThis.prismaGlobal ?? prismaClientSingleton();
-
-export default prisma;
-
-// Production-оос бусад орчинд global-д хадгална
-if (process.env.NODE_ENV !== "production") globalThis.prismaGlobal = prisma;
+if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;

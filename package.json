@@ -12,7 +12,9 @@
   "dependencies": {
     "@clerk/nextjs": "^6.36.5",
     "@google/generative-ai": "^0.24.1",
+    "@prisma/adapter-pg": "^7.2.0",
     "@prisma/client": "^6.19.1",
+    "dotenv": "^17.2.3",
     "next": "16.1.1",
     "openai": "^6.15.0",
     "pg": "^8.16.3",
@@ -21,7 +23,8 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
-    "@types/node": "^20",
+    "@types/node": "^20.19.27",
+    "@types/pg": "^8.16.0",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",

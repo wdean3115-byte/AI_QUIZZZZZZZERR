@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs/server"; // auth ашиглах
-import prisma from "@/lib/prisma";
+import { prisma } from "@/lib/prisma";
 import { geminiModel } from "@/lib/gemini"; // lib/gemini-д тодорхойлсон модел
 
 export async function POST(req: Request) {

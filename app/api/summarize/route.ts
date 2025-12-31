@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs/server"; // getAuth биш auth
-import prisma from "@/lib/prisma";
+import { prisma } from "@/lib/prisma";
 import { genAI } from "@/lib/gemini";
 
 export async function POST(req: Request) {
